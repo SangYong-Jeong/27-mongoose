@@ -38,9 +38,9 @@ app.use(logger)
 
 
 /*************** router init **************/
-// const Router = require()
+const bookRouter = require('./routes/book')
 
-// app.use()
+app.use('/book', bookRouter)
 
 
 /**************** error init **************/
