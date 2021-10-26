@@ -8,10 +8,34 @@ router.get('/create', async (req, res, next) => {
   try {
     // const { userid, userpw, username } = req.body
     // const user = new Users(req.body)
-    const newUser = { userid: 'mmaduu3', userpw: '1234', username: '정상용' }
+    const newUser = { userid: 'mmaduu8', userpw: '1234', username: '정상용' }
     const user = new Users(newUser)
     const rs = await user.save()
     res.status(200).json(rs)
+  }
+  catch (err) {
+    next(createError(err))
+  }
+})
+
+router.get('/login', async (req, res, next) => {
+  try {
+    const user = await Users.login('mmaduu', '1234')
+    user 
+      ? res.status(200).json(user) 
+      : res.status(401).json({ err: 'loginFail' })
+  }
+  catch (err) {
+    next(createError(err))
+  }
+})
+
+router.get('/find', async (req, res, next) => {
+  try {
+    const users = await Users.findByName(req.query.name)
+    users 
+      ? res.status(200).json(users) 
+      : res.status(401).json({ err: 'Not found Result' })
   }
   catch (err) {
     next(createError(err))
